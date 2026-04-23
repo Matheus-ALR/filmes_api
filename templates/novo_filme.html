@@ -17,19 +17,30 @@
     <section class="form-container">
         <h2>Cadastrar Novo Filme</h2>
 
+        <!-- >>> PARTE 6 (ESSENCIAL) -->
         <form method="POST" enctype="multipart/form-data" class="form-filme">
+
             <input type="text" name="titulo" placeholder="Nome do filme" required>
             <input type="text" name="genero" placeholder="Gênero" required>
             <input type="date" name="ano" placeholder="Ano" required>
 
             <div class="upload-area" id="upload-area">
                 <img id="preview-img" class="preview-img" style="display:none;" alt="Preview">
+
                 <div id="upload-placeholder" class="upload-placeholder">
                     <span class="upload-icon">📁</span>
                     <p>Clique ou arraste a imagem da capa</p>
-                    <span class="upload-hint">PNG, JPG, JPEG, GIF ou WEBP</span>
+
+                    <!-- >>> AJUSTE (EXTENSÕES CORRETAS) -->
+                    <span class="upload-hint">PNG, JPG, JPEG</span>
                 </div>
-                <input type="file" name="file_capa" id="input-capa" accept="image/*" required>
+
+                <!-- >>> PARTE 6 (CORREÇÃO CRÍTICA AQUI) -->
+                <input type="file"
+                       name="url_capa"
+                       id="input-capa"
+                       accept="image/png, image/jpeg"
+                       required>
             </div>
 
             <button type="submit" class="btn-save">
@@ -45,7 +56,6 @@
     {% include 'components/loading.html' %}
 
     <script>
-        // Preview da imagem selecionada
         const inputCapa = document.getElementById('input-capa');
         const previewImg = document.getElementById('preview-img');
         const placeholder = document.getElementById('upload-placeholder');
@@ -64,12 +74,10 @@
             }
         });
 
-        // Clique na área de upload abre o seletor de arquivo
         uploadArea.addEventListener('click', function () {
             inputCapa.click();
         });
 
-        // Drag and drop
         uploadArea.addEventListener('dragover', function (e) {
             e.preventDefault();
             uploadArea.classList.add('drag-over');
