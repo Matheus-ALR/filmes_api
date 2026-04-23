@@ -27,19 +27,31 @@
             <div class="card">
                 <div class="card-content">
                     <h3>{{ filme.titulo }}</h3>
-                    {% if filme.file_capa %}
-                    <img src="{{ url_for('static', filename='uploads/' + filme.file_capa) }}" alt="{{ filme.titulo }}" class="card-img">                    {% else %}
-                    <div class="card-img card-img-placeholder">🎬</div>
+
+                    <!-- >>> CORREÇÃO AQUI -->
+                    {% if filme.url_capa %}
+                        <img src="{{ url_for('static', filename=filme.url_capa) }}"
+                             alt="{{ filme.titulo }}"
+                             class="card-img">
+                    {% else %}
+                        <div class="card-img card-img-placeholder">🎬</div>
                     {% endif %}
+
                     <p><strong>Gênero:</strong> {{filme.genero}}</p>
                     <p><strong>Lançamento:</strong> {{ filme.ano }}</p>
+
                     <div style="margin-top: 15px;">
                         <a href="{{ url_for('editar_filme', id=filme.id) }}"
-                            style="padding: 5px 10px; background-color: #f39c12; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px;">Editar</a>
-                        <form action="{{ url_for('deletar_filme', id=filme.id) }}" method="POST"
-                            style="display:inline;">
-                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?');"
-                                style="padding: 5px 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">Excluir</button>
+                            style="padding: 5px 10px; background-color: #f39c12; color: white; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+                            Editar
+                        </a>
+
+                        <form action="{{ url_for('deletar_filme', id=filme.id) }}" method="POST" style="display:inline;">
+                            <button type="submit"
+                                onclick="return confirm('Tem certeza que deseja excluir?');"
+                                style="padding: 5px 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                Excluir
+                            </button>
                         </form>
                     </div>
 
@@ -52,6 +64,7 @@
             {% endfor %}
         </div>
     </section>
+
     {% include 'components/loading.html' %}
 
     <script>
@@ -60,6 +73,6 @@
             Loading.attachToLinks('.btn-add, .card-content a', 'Carregando...');
         });
     </script>
-</body>
 
+</body>
 </html>
