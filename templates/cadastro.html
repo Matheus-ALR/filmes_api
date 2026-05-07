@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário - DevFLIX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-page">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h2 class="login-title">Novo Usuário</h2>
+
+            {% if erro %}
+            <div class="login-error" style="background-color: rgba(231, 76, 60, 0.1); border: 1px solid #e74c3c; color: #e74c3c; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9em;">
+                <span class="login-error-icon">⚠️</span>
+                <span>{{ erro }}</span>
+            </div>
+            {% endif %}
+
+            <form method="POST" class="login-form">
+                <div class="input-group">
+                    <input type="text" name="nome" placeholder="Nome" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="E-mail" required>
+                </div>
+                <div class="input-group">
+                    <input type="password"
+                           name="senha"
+                           placeholder="Senha (mín. 8 caracteres + especial)"
+                           minlength="8"
+                           required>
+                    <small style="color: #bbb; font-size: 0.75em; display: block; margin-top: 5px;">
+                        A senha deve ter no mínimo 8 caracteres e um símbolo (!@#$).
+                    </small>
+                </div>
+                <button type="submit" class="btn-login">Salvar Usuário</button>
+            </form>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="{{ url_for('listar_filmes') }}" style="color: #3498db; text-decoration: none; font-size: 0.9em;">
+                    ← Voltar para o Catálogo
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
